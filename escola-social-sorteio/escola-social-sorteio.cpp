@@ -4,9 +4,62 @@
 #include "pch.h"
 #include <iostream>
 
-int main()
+#include "ParamsValidator.h"
+#include "ParamsValidationException.h"
+#include "Parser.h"
+#include "ParserException.h"
+#include "Logger.h"
+#include "ConsoleLogger.h"
+#include "Inscricao.h"
+#include "RaffleManager.h"
+
+using namespace std;
+
+int main(int argc, char **argv)
 {
-    std::cout << "Hello World!\n"; 
+	Logger* log = new ConsoleLogger("SORTEIO");
+	log->set_level(Logger::Level::INFO);
+	//log->info(__FILE__, __LINE__, "Fabrica Social - Sorteio de Inscricoes");
+
+	ParamsValidator paramsValidator;
+
+	try {
+		paramsValidator.valid(argc, argv);
+	}
+	catch (const ParamsValidationException& e) {
+		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		delete log;
+		return EXIT_FAILURE;
+	}
+	catch (const FileNotFoundException& e) {
+		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		delete log;
+		return EXIT_FAILURE;
+	}
+	
+	Parser parser;
+	vector<Inscricao>* inscricoes;
+
+	try {
+		inscricoes = parser.parseFile(argv[1]);
+	}
+	catch (const ParserException& e) {
+		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		delete log;
+		return EXIT_FAILURE;
+	}
+
+	cout << "Total de Inscricoes: " << inscricoes->size() << endl;
+	cout << "1. Organizando o sorteio por Categoria e Area de Capacitacao" << endl;
+
+	RaffleManager raffleManager(inscricoes);
+	raffleManager.process();
+
+	delete log;
+
+	cout << "Processamento realizado cmo sucesso" << endl;
+
+	return EXIT_SUCCESS;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
