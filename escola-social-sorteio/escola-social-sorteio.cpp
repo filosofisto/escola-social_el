@@ -12,14 +12,14 @@
 #include "ConsoleLogger.h"
 #include "Inscricao.h"
 #include "RaffleManager.h"
+#include "ConsoleColor.h"
 
 using namespace std;
 
 int main(int argc, char **argv)
 {
-	Logger* log = new ConsoleLogger("SORTEIO");
-	log->set_level(Logger::Level::INFO);
-	//log->info(__FILE__, __LINE__, "Fabrica Social - Sorteio de Inscricoes");
+	ConsoleColor cc;
+	cc.set(ConsoleColor::Color::LIGHT_BLUE);
 
 	ParamsValidator paramsValidator;
 
@@ -27,37 +27,37 @@ int main(int argc, char **argv)
 		paramsValidator.valid(argc, argv);
 	}
 	catch (const ParamsValidationException& e) {
-		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
-		delete log;
+		cc.set(ConsoleColor::Color::LIGHT_RED);
+		cerr << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		cc.reset();
 		return EXIT_FAILURE;
 	}
 	catch (const FileNotFoundException& e) {
-		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
-		delete log;
+		cc.set(ConsoleColor::Color::LIGHT_RED);
+		cerr << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		cc.reset();
 		return EXIT_FAILURE;
 	}
 	
-	Parser parser;
+	Parser parser(cc);
 	vector<Inscricao>* inscricoes;
 
 	try {
 		inscricoes = parser.parseFile(argv[1]);
 	}
 	catch (const ParserException& e) {
-		cerr << "Erro: " << e.what() << " - Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
-		delete log;
+		cc.set(ConsoleColor::Color::LIGHT_RED);
+		cerr << "Erro: " << e.what() << endl << " Arquivo: " << __FILE__ << ", Linha: " << __LINE__ << endl;
+		cc.reset();
 		return EXIT_FAILURE;
 	}
 
 	cout << "Total de Inscricoes: " << inscricoes->size() << endl;
-	cout << "1. Organizando o sorteio por Categoria e Area de Capacitacao" << endl;
 
-	RaffleManager raffleManager(inscricoes);
+	RaffleManager raffleManager(cc, inscricoes);
 	raffleManager.process();
 
-	delete log;
-
-	cout << "Processamento realizado cmo sucesso" << endl;
+	cc.reset();
 
 	return EXIT_SUCCESS;
 }

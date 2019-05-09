@@ -152,11 +152,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleLogger.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="FileAttributesException.h" />
     <ClInclude Include="FileNotFoundException.h" />
     <ClInclude Include="Inscricao.h" />
+    <ClInclude Include="IOException.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MapKey.h" />
@@ -165,16 +167,19 @@
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ParserException.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Properties.h" />
     <ClInclude Include="RaffleManager.h" />
     <ClInclude Include="StringHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleColor.cpp" />
     <ClCompile Include="ConsoleLogger.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="escola-social-sorteio.cpp" />
     <ClCompile Include="FileAttributesException.cpp" />
     <ClCompile Include="FileNotFoundException.cpp" />
     <ClCompile Include="Inscricao.cpp" />
+    <ClCompile Include="IOException.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MapKey.cpp" />
@@ -188,6 +193,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RaffleManager.cpp" />
     <ClCompile Include="StringHelper.cpp" />
   </ItemGroup>

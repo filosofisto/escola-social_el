@@ -136,6 +136,21 @@ bool Inscricao::getMoradorEstrutural() const
 	return this->morador_estrutural;
 }
 
+int Inscricao::getMoradorEstruturalAsInt() const
+{
+	if (getMoradorEstrutural()) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
+}
+
+bool Inscricao::operator<(const Inscricao & i2) const
+{
+	return getMoradorEstruturalAsInt() - i2.getMoradorEstruturalAsInt();
+}
+
 bool Inscricao::getAlfabetizado() const
 {
 	return this->alfabetizado;

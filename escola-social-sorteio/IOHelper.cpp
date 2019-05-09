@@ -11,3 +11,10 @@ bool IOHelper::exist(const char* filename)
 
 	return (fileAttr & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }
+
+string IOHelper::curdir()
+{
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, (LPWSTR) buffer, MAX_PATH);
+	return string(buffer);
+}

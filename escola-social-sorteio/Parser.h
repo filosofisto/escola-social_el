@@ -8,13 +8,14 @@
 #include "Common.h"
 #include "ParserException.h"
 #include "Inscricao.h"
+#include "ConsoleColor.h"
 
 using namespace std;
 
 class Parser
 {
 public:
-	Parser();
+	Parser(ConsoleColor& cc);
 	virtual ~Parser();
 
 	vector<Inscricao>* parseFile(const char* filename);
@@ -23,5 +24,6 @@ private:
 	void fill(Inscricao& i, int col, const string& word);
 
 	vector<Inscricao> inscricoes;
+	ConsoleColor& cc;
 };
 

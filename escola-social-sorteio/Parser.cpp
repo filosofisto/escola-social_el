@@ -2,7 +2,7 @@
 #include "Parser.h"
 
 
-Parser::Parser()
+Parser::Parser(ConsoleColor& cc): cc(cc)
 {
 }
 
@@ -13,6 +13,9 @@ Parser::~Parser()
 
 vector<Inscricao>* Parser::parseFile(const char * filename)
 {
+	cc.set(ConsoleColor::Color::LIGHT_YELLOW);
+	cout << "Realizando parse do arquivo CVS..." << endl;
+
 	ifstream fin(filename);
 	if (!fin) {
 		throw ParserException();
@@ -35,10 +38,12 @@ vector<Inscricao>* Parser::parseFile(const char * filename)
 		}
 
 		inscricoes.push_back(i);
-		cout << i.toStringMainFields() << endl;
+		//cout << i.toStringMainFields() << endl;
 	}
 
 	fin.close();
+
+	cout << "Parse realizado com sucesso" << endl;
 
 	return &inscricoes;
 }

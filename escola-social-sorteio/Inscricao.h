@@ -88,6 +88,9 @@ public:
 
 	string toString() const;
 	string toStringMainFields() const;
+	int getMoradorEstruturalAsInt() const;
+
+	bool operator <(const Inscricao& i2) const;
 private:
 	string codigo_ligacao;
 	string data_atendimento;
