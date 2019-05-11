@@ -2,8 +2,8 @@
 #include "MapKey.h"
 
 
-MapKey::MapKey(const string & categoria, const string & areaCapacitacao):
-	categoria(categoria), areaCapacitacao(areaCapacitacao)
+MapKey::MapKey(const string& capacitacao, const string& categoria):
+	capacitacao(capacitacao), categoria(categoria)
 {
 }
 
@@ -14,7 +14,17 @@ MapKey::~MapKey()
 string MapKey::toString() const
 {
 	stringstream ss;
-	ss << categoria << "_" << areaCapacitacao;
+	ss << capacitacao << "/" << categoria;
 	
 	return ss.str();
+}
+
+string MapKey::getCapacitacao() const
+{
+	return capacitacao;
+}
+
+string MapKey::getCategoria() const
+{
+	return categoria;
 }

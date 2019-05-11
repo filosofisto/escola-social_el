@@ -21,19 +21,20 @@ vector<Inscricao>* Parser::parseFile(const char * filename)
 		throw ParserException();
 	}
 
+	bool firstline = true;
 	string line, word;
-	const char delim = ',';
+
 	while (getline(fin, line)) {
+		if (firstline) {
+			firstline = false;
+			continue;
+		}
+
 		stringstream ss(line);
 		int col = 0;
 		Inscricao i;
 		while (getline(ss, word, ',')) {
 			col++;
-			if (col == 22) {
-				// Endereco esta vindo com virgulas e ferra o parser
-				// Este break ignora o endereco e demais colunas
-				break;
-			}
 			fill(i, col, word);
 		}
 
@@ -48,116 +49,130 @@ vector<Inscricao>* Parser::parseFile(const char * filename)
 	return &inscricoes;
 }
 
-void Parser::fill(Inscricao& i, int col, const string& word)
+void Parser::fill(Inscricao& i, int col, string& word)
 {
+	string trim_word = StringHelper::trim(word);
 
 	switch (col) {
 	case 1:
-		i.setCodigoLigacao(word);
+		i.setCodigoLigacao(trim_word);
 		break;
 	case 2:
-		i.setDataAtendimento(word);
+		i.setDataAtendimento(trim_word);
 		break;
 	case 3:
-		i.setCanalInscricao(word);
+		i.setCadastroUnico(trim_word);
 		break;
 	case 4:
-		i.setNomeCadastroUnico(word);
+		i.setStatusLigacao(trim_word);
 		break;
 	case 5:
-		i.setStatusLigacao(word);
+		i.setNomeCidadao(trim_word);
 		break;
 	case 6:
-		i.setTelefonePrincipal(word);
+		i.setTelefonePrincipal(trim_word);
 		break;
 	case 7:
-		i.setTelefoneRecado(word);
-		break;
+		i.setTelefoneCelular(trim_word);
+		break; 
 	case 8:
-		i.setEmailCadastroUnico(word);
+		i.setTelefoneRecado(trim_word);
 		break;
 	case 9:
-		i.setUF(word);
+		i.setEmail(trim_word);
 		break;
 	case 10:
-		i.setCidadeRegiaoAdministrativa(word);
+		i.setUF(trim_word);
 		break;
 	case 11:
-		i.setCPF(word);
+		i.setCidade(trim_word);
 		break;
 	case 12:
-		i.setNome(word);
+		i.setBairro(trim_word);
 		break;
 	case 13:
-		i.setRG(word);
+		// ignore fs Date time
 		break;
 	case 14:
-		i.setTelefoneParaRetorno(word);
+		i.setDataNascimento(trim_word);
 		break;
 	case 15:
-		i.setNomeMae(word);
+		i.setCPF(trim_word);
 		break;
 	case 16:
-		i.setDataNascimento(word);
+		i.setNIS(trim_word);
 		break;
 	case 17:
-		i.setIdade(word);
+		i.setNomeInscrito(trim_word);
 		break;
 	case 18:
-		i.setCategoria(word);
+		i.setTelefoneParaRetorno(trim_word);
 		break;
 	case 19:
-		i.setAreaCapacitacaoDesejada(word);
+		i.setNomeMae(trim_word);
 		break;
 	case 20:
-		i.setTelefoneAplicativoMensagensInstantaneas(word);
+		i.setIdade(trim_word);
 		break;
 	case 21:
-		i.setCep(word);
+		i.setCategoria(trim_word);
 		break;
 	case 22:
-		i.setEndereco(word);
+		i.setCapacitacao(trim_word);
 		break;
 	case 23:
-		i.setMoradorEstrutural(word == "SIM");
+		i.setMoradorEstrutural(trim_word == "SIM");
 		break;
 	case 24:
-		i.setAlfabetizado(word == "SIM");
+		i.setTelefoneAplicativoMensagensInstantaneas(trim_word);
 		break;
 	case 25:
-		i.setEstudando(word == "SIM");
+		i.setCep(trim_word);
 		break;
 	case 26:
-		i.setGrauInstrucao(word);
+		i.setRedeSocial(trim_word);
 		break;
 	case 27:
-		i.setSituacaoEscolaridade(word);
+		i.setAlfabetizado(trim_word == "SIM");
 		break;
 	case 28:
-		i.setSexo(word);
+		i.setEstudando(trim_word == "SIM");
 		break;
 	case 29:
-		i.setCor(word);
+		i.setGrauInstrucao(trim_word);
 		break;
 	case 30:
-		i.setRecebeAlgumBeneficioSocial(word == "SIM");
+		i.setSituacaoEscolaridade(trim_word);
 		break;
 	case 31:
-		i.setBeneficioRecebido(word);
+		i.setSexo(trim_word);
 		break;
 	case 32:
-		i.setNIS(word);
+		i.setCor(trim_word);
 		break;
 	case 33:
-		i.setMoradorAreaRuralDF(word == "SIM");
+		i.setRecebeAlgumBeneficioSocial(trim_word == "SIM");
 		break;
 	case 34:
-		i.setObservacoes(word);
+		i.setBeneficioRecebido(trim_word);
+		break;
+	case 35:
+		// ignore fs email
+		break;
+	case 36:
+		// ignore fs participou
+		break;
+	case 37:
+		// ignore fs primary inscricao
+		break;
+	case 38:
+		// ignore fs rg
+		break;
+	case 39:
+		// ignore fs internet
+		break;
+	case 40:
+		i.setObservacoes(trim_word);
 		break;
 	}
 }
-
-
-
-
-

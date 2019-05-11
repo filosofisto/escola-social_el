@@ -4,6 +4,7 @@
 
 Inscricao::Inscricao()
 {
+	setRuffle(0);
 }
 
 
@@ -26,9 +27,14 @@ string Inscricao::getCanalInscricao() const
 	return this->canal_inscricao;
 }
 
-string Inscricao::getNomeCadastroUnico() const
+string Inscricao::getCadastroUnico() const
 {
-	return this->nome_cadastro_unico;
+	return cadastro_unico;
+}
+
+string Inscricao::getNomeCidadao() const
+{
+	return this->nome_cidadao;
 }
 
 string Inscricao::getStatusLigacao() const
@@ -39,6 +45,11 @@ string Inscricao::getStatusLigacao() const
 string Inscricao::getTelefonePrincipal() const
 {
 	return this->telefone_principal;
+}
+
+string Inscricao::getTelefoneCelular() const
+{
+	return telefone_celular;
 }
 
 string Inscricao::getTelefoneRecado() const
@@ -56,9 +67,9 @@ string Inscricao::getUF() const
 	return this->uf;
 }
 
-string Inscricao::getCidadeRegiaoAdministrativa() const
+string Inscricao::getCidade() const
 {
-	return this->cidade_regiao_administrativa;
+	return this->cidade;
 }
 
 string Inscricao::getCPF() const
@@ -66,9 +77,9 @@ string Inscricao::getCPF() const
 	return this->cpf;
 }
 
-string Inscricao::getNome() const
+string Inscricao::getNomeInscrito() const
 {
-	return this->nome;
+	return this->nome_inscrito;
 }
 
 string Inscricao::getRG() const
@@ -101,9 +112,9 @@ string Inscricao::getCategoria() const
 	return this->categoria;
 }
 
-string Inscricao::getAreaCapacitacaoDesejada() const
+string Inscricao::getCapacitacao() const
 {
-	return this->area_capacitacao_desejada;
+	return this->capacitacao;
 }
 
 string Inscricao::getTelefoneAplicativoMensagensInstantaneas() const
@@ -148,7 +159,13 @@ int Inscricao::getMoradorEstruturalAsInt() const
 
 bool Inscricao::operator<(const Inscricao & i2) const
 {
-	return getMoradorEstruturalAsInt() - i2.getMoradorEstruturalAsInt();
+	//return getRuffle() - i2.getRuffle();
+	if (getRuffle() < i2.getRuffle()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Inscricao::getAlfabetizado() const
@@ -206,6 +223,16 @@ string Inscricao::getObservacoes() const
 	return this->observacoes;
 }
 
+int Inscricao::getRuffle() const
+{
+	return this->ruffle;
+}
+
+string Inscricao::getRedeSocial() const
+{
+	return rede_social;
+}
+
 void Inscricao::setCodigoLigacao(const string& codigo_ligacao)
 {
 	this->codigo_ligacao.assign(codigo_ligacao);
@@ -216,13 +243,18 @@ void Inscricao::setDataAtendimento(const string & data_atendimento)
 	this->data_atendimento.assign(data_atendimento);
 }
 
+void Inscricao::setCadastroUnico(const string & cadastro_unico)
+{
+	this->cadastro_unico = cadastro_unico;
+}
+
 void Inscricao::setCanalInscricao(const string& canal_inscricao) {
 	this->canal_inscricao.assign(canal_inscricao);
 }
 
-void Inscricao::setNomeCadastroUnico(const string & nome_cadastro_unico)
+void Inscricao::setNomeCidadao(const string & nome_cidadao)
 {
-	this->nome_cadastro_unico.assign(nome_cadastro_unico);
+	this->nome_cidadao.assign(nome_cidadao);
 }
 
 void Inscricao::setStatusLigacao(const string & status_ligacao)
@@ -233,6 +265,11 @@ void Inscricao::setStatusLigacao(const string & status_ligacao)
 void Inscricao::setTelefonePrincipal(const string & telefone_principal)
 {
 	this->telefone_principal.assign(telefone_principal);
+}
+
+void Inscricao::setTelefoneCelular(const string & telefone_celular)
+{
+	this->telefone_celular.assign(telefone_celular);
 }
 
 void Inscricao::setTelefoneRecado(const string & telefone_recado)
@@ -250,9 +287,14 @@ void Inscricao::setUF(const string & uf)
 	this->uf.assign(uf);
 }
 
-void Inscricao::setCidadeRegiaoAdministrativa(const string & cidade_regiao_administrativa)
+void Inscricao::setCidade(const string & cidade)
 {
-	this->cidade_regiao_administrativa.assign(cidade_regiao_administrativa);
+	this->cidade.assign(cidade);
+}
+
+void Inscricao::setBairro(const string & bairro)
+{
+	this->bairro.assign(bairro);
 }
 
 void Inscricao::setCPF(const string & cpf)
@@ -260,9 +302,9 @@ void Inscricao::setCPF(const string & cpf)
 	this->cpf.assign(cpf);
 }
 
-void Inscricao::setNome(const string & nome)
+void Inscricao::setNomeInscrito(const string & nome_inscrito)
 {
-	this->nome.assign(nome);
+	this->nome_inscrito.assign(nome_inscrito);
 }
 
 void Inscricao::setRG(const string & rg)
@@ -295,9 +337,9 @@ void Inscricao::setCategoria(const string & categoria)
 	this->categoria.assign(categoria);
 }
 
-void Inscricao::setAreaCapacitacaoDesejada(const string & area_capacitacao_desejada)
+void Inscricao::setCapacitacao(const string & capacitacao)
 {
-	this->area_capacitacao_desejada.assign(area_capacitacao_desejada);
+	this->capacitacao.assign(capacitacao);
 }
 
 void Inscricao::setTelefoneAplicativoMensagensInstantaneas(const string & telefone_aplicativo_mensagens_instantaneas)
@@ -385,28 +427,38 @@ void Inscricao::setObservacoes(const string & observacoes)
 	this->observacoes.assign(observacoes);
 }
 
+void Inscricao::setRuffle(int ruffle)
+{
+	this->ruffle = ruffle;
+}
+
+void Inscricao::setRedeSocial(const string & rede_social)
+{
+	this->rede_social.assign(rede_social);
+}
+
 string Inscricao::toString() const
 {
 	stringstream ss;
 	ss << "Codigo Ligacao: " << getCodigoLigacao()
 		<< ", Data Atendimento: " << getDataAtendimento()
 		<< ", Canal de Inscricao: " << getCanalInscricao()
-		<< ", Nome Cadastro Unico: " << getNomeCadastroUnico()
+		<< ", Nome Cadastro Unico: " << getNomeCidadao()
 		<< ", Status Ligacao: " << getStatusLigacao()
 		<< ", Telefone Principal: " << getTelefonePrincipal()
 		<< ", Telefone Recado: " << getTelefoneRecado()
 		<< ", Email Cadastro Unico: " << getEmailCadastroUnico()
 		<< ", UF: " << getUF()
-		<< ", Cidade/Regiao Admin: " << getCidadeRegiaoAdministrativa()
+		<< ", Cidade/Regiao Admin: " << getCidade()
 		<< ", CPF: " << getCPF()
-		<< ", Nome Inscrito: " << getNome()
+		<< ", Nome Inscrito: " << getNomeInscrito()
 		<< ", RG: " << getRG()
 		<< ", Telefone para Retorno: " << getTelefoneParaRetorno()
 		<< ", Nome da Mae: " << getNomeMae()
 		<< ", Data Nascimento: " << getDataNascimento()
 		<< ", Idade: " << getIdade()
 		<< ", Categoria: " << getCategoria()
-		<< ", Area Capacitacao: " << getAreaCapacitacaoDesejada()
+		<< ", Area Capacitacao: " << getCapacitacao()
 		<< ", Telefone Aplicativo Msg Instantanea: " << getTelefoneAplicativoMensagensInstantaneas()
 		<< ", CEP: " << getCep()
 		<< ", Endereco: " << getEndereco()
@@ -431,9 +483,9 @@ string Inscricao::toStringMainFields() const
 {
 	stringstream ss;
 	ss	<< "CPF: [" << getCPF() << "]"
-		<< ", Nome Inscrito: [" << getNome() << "]"
+		<< ", Nome Inscrito: [" << getNomeInscrito() << "]"
 		<< ", Categoria: [" << getCategoria() + "]"
-		<< ", Area Capacitacao: [" << getAreaCapacitacaoDesejada() + "]"
+		<< ", Area Capacitacao: [" << getCapacitacao() + "]"
 		<< ", Morador Estrutural: [" << (getMoradorEstrutural() ? "SIM" : "NAO") << "]"
 		;
 

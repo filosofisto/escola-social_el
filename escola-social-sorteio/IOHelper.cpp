@@ -14,7 +14,16 @@ bool IOHelper::exist(const char* filename)
 
 string IOHelper::curdir()
 {
-	char buffer[MAX_PATH];
-	GetModuleFileName(NULL, (LPWSTR) buffer, MAX_PATH);
-	return string(buffer);
+	TCHAR buffer[MAX_PATH];
+	DWORD ret = GetCurrentDirectory(MAX_PATH, buffer);
+	if (ret == 0) {
+		throw IOException("Nao foi possivel obter o diretorio corrente");
+	}
+	if (ret > MAX_PATH) {
+		throw IOException("Buffer muito pequeno para obter o diretorio corrente");
+	}
+
+	string result = buffer;
+
+	return result;
 }

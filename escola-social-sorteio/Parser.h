@@ -9,6 +9,7 @@
 #include "ParserException.h"
 #include "Inscricao.h"
 #include "ConsoleColor.h"
+#include "StringHelper.h"
 
 using namespace std;
 
@@ -19,9 +20,8 @@ public:
 	virtual ~Parser();
 
 	vector<Inscricao>* parseFile(const char* filename);
-	string toString() const;
 private:
-	void fill(Inscricao& i, int col, const string& word);
+	void fill(Inscricao& i, int col, string& word);
 
 	vector<Inscricao> inscricoes;
 	ConsoleColor& cc;

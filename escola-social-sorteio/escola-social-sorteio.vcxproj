@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Banner.h" />
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleLogger.h" />
     <ClInclude Include="DateTime.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MapKey.h" />
+    <ClInclude Include="Out.h" />
     <ClInclude Include="ParamsValidationException.h" />
     <ClInclude Include="ParamsValidator.h" />
     <ClInclude Include="Parser.h" />
@@ -169,9 +171,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="RaffleManager.h" />
+    <ClInclude Include="Report.h" />
     <ClInclude Include="StringHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Banner.cpp" />
     <ClCompile Include="ConsoleColor.cpp" />
     <ClCompile Include="ConsoleLogger.cpp" />
     <ClCompile Include="DateTime.cpp" />
@@ -183,6 +187,7 @@
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MapKey.cpp" />
+    <ClCompile Include="Out.cpp" />
     <ClCompile Include="ParamsValidationException.cpp" />
     <ClCompile Include="ParamsValidator.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -195,6 +200,7 @@
     </ClCompile>
     <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RaffleManager.cpp" />
+    <ClCompile Include="Report.cpp" />
     <ClCompile Include="StringHelper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

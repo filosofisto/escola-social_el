@@ -9,26 +9,28 @@
 #include "Inscricao.h"
 #include "MapKey.h"
 #include "ConsoleColor.h"
+#include "Out.h"
 
 using namespace std;
 
 class RaffleManager
 {
 public:
-	RaffleManager(ConsoleColor& cc, vector<Inscricao>* inscricoes);
+	RaffleManager(Out& out, ConsoleColor& cc, vector<Inscricao>* inscricoes);
 	~RaffleManager();
 
-	void process();
+	map<string, vector<Inscricao>*>& process();
 private:
 	void fillMap();
 	void processEachRaffle();
-	void processCategoryArea(const string& key, vector<Inscricao>* list);
+	void processAreaCategory(const string& key, vector<Inscricao>* list);
 	void showQuantitiesPerCategoryAndArea() const;
 	void showResult() const;
-	void showResult(const string& key, vector<Inscricao>* list) const;
+	void showResult(const string& key, vector<Inscricao>* list, const ConsoleColor::Color color) const;
 
 	vector<Inscricao>* inscricoes;
 	map<string, vector<Inscricao>*> mapInscricoes;
 	ConsoleColor& cc;
+	Out& out;
 };
 

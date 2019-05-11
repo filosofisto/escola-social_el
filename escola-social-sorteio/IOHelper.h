@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "FileAttributesException.h"
+#include "IOException.h"
 
 using namespace std;
 

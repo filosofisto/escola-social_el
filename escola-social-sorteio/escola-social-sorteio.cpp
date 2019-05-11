@@ -13,14 +13,28 @@
 #include "Inscricao.h"
 #include "RaffleManager.h"
 #include "ConsoleColor.h"
+#include "Banner.h"
+#include "Out.h"
+#include "Report.h"
 
 using namespace std;
 
 int main(int argc, char **argv)
 {
+	// Ouput (file and console)
+	string logname = IOHelper::curdir();
+	logname.append("\\log.txt");
+	Out out(logname);
+
+	// Console colors
 	ConsoleColor cc;
 	cc.set(ConsoleColor::Color::LIGHT_BLUE);
 
+	// Banner
+	Banner banner(out);
+	banner.show();
+
+	// Parameters
 	ParamsValidator paramsValidator;
 
 	try {
@@ -28,17 +42,18 @@ int main(int argc, char **argv)
 	}
 	catch (const ParamsValidationException& e) {
 		cc.set(ConsoleColor::Color::LIGHT_RED);
-		cerr << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		out << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
 		cc.reset();
 		return EXIT_FAILURE;
 	}
 	catch (const FileNotFoundException& e) {
 		cc.set(ConsoleColor::Color::LIGHT_RED);
-		cerr << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
+		out << "Erro: " << e.what() << endl << "Arquivo: " << __FILE__ << " - Linha: " << __LINE__ << endl;
 		cc.reset();
 		return EXIT_FAILURE;
 	}
 	
+	// Parser (data import)
 	Parser parser(cc);
 	vector<Inscricao>* inscricoes;
 
@@ -47,15 +62,22 @@ int main(int argc, char **argv)
 	}
 	catch (const ParserException& e) {
 		cc.set(ConsoleColor::Color::LIGHT_RED);
-		cerr << "Erro: " << e.what() << endl << " Arquivo: " << __FILE__ << ", Linha: " << __LINE__ << endl;
+		out << "Erro: " << e.what() << endl << " Arquivo: " << __FILE__ << ", Linha: " << __LINE__ << endl;
 		cc.reset();
 		return EXIT_FAILURE;
 	}
 
-	cout << "Total de Inscricoes: " << inscricoes->size() << endl;
+	out << "Total de Inscricoes: " << inscricoes->size() << endl;
 
-	RaffleManager raffleManager(cc, inscricoes);
-	raffleManager.process();
+	// Manager of ruffle
+	RaffleManager raffleManager(out, cc, inscricoes);
+	map<string, vector<Inscricao>*>& mapInscricoes = raffleManager.process();
+
+	// Report
+	string reportFilename = IOHelper::curdir();
+	reportFilename.append("\\report.txt");
+	Report report(reportFilename);
+	report.build(mapInscricoes);
 
 	cc.reset();
 
