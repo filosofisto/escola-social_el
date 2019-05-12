@@ -78,10 +78,10 @@ void RaffleManager::processAreaCategory(const string& key, vector<Inscricao>* li
 	out << "-------------------------------------------------------------------------------" << endl;
 	out << "Processando Catgoria/Area: " << key << endl;
 	out << "-------------------------------------------------------------------------------" << endl;
-	out << "Lista original: " << endl;
-	showResult(key, list, ConsoleColor::Color::WHITE);
+	//out << "Lista original: " << endl;
+	//showResult(key, list, ConsoleColor::Color::WHITE);
 
-	out << "Realizando sorteio dos inscritor" << endl;
+	out << "Realizando sorteio dos inscritos" << endl;
 	
 	random_shuffle(list->begin(), list->end());
 
@@ -97,11 +97,11 @@ void RaffleManager::processAreaCategory(const string& key, vector<Inscricao>* li
 		}
 	}
 
-	out << "Ordenando lista conforme sorteio" << endl;
+	out << "Ordenando lista conforme resultado do sorteio" << endl;
 	sort(list->begin(), list->end());
 
-	out << "Resultado do sorteio: " << endl;
-	showResult(key, list, ConsoleColor::Color::LIGHT_PURPLE);
+	//out << "Resultado do sorteio: " << endl;
+	//showResult(key, list, ConsoleColor::Color::LIGHT_PURPLE);
 
 	out << "-------------------------------------------------------------------------------" << endl;
 }
