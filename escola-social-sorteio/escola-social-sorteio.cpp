@@ -82,7 +82,9 @@ int main(int argc, char **argv)
 	cc.reset();
 
 	// Executing Java to generate PDF format report
+	cc.set(ConsoleColor::Color::LIGHT_YELLOW);
 	out << "Acionando programa para gerar relatorio no formato PDF" << endl;
+	cc.reset();
 	system("java -jar escola-social-sorteio-relatorio-1.0-SNAPSHOT.jar");
 
 	return EXIT_SUCCESS;

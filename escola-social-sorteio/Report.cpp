@@ -18,9 +18,9 @@ void Report::build(const map<string, vector<Inscricao>*>& mapInscricoes)
 
 	for (auto e : mapInscricoes) {
 		pos = e.first.find("/");
-		capacitacao = e.first.substr(0, pos-1);
+		capacitacao = e.first.substr(0, pos);
 		if (capacitacao.substr(0, 1) == "\"") {
-			capacitacao = e.first.substr(1, pos - 1);
+			capacitacao = e.first.substr(1, pos);
 		}
 		categoria = e.first.substr(pos + 1);
 
