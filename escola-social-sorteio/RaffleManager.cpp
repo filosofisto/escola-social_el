@@ -69,6 +69,7 @@ void RaffleManager::processAreaCategory(const string& key, vector<Inscricao>* li
 	srand(unsigned(time(0)));
 
 	out << "Processando Area/Categoria: " << key << endl;
+	showResult(key, list, ConsoleColor::Color::WHITE);
 	
 	random_shuffle(list->begin(), list->end());
 
@@ -86,7 +87,7 @@ void RaffleManager::processAreaCategory(const string& key, vector<Inscricao>* li
 
 	sort(list->begin(), list->end());
 
-	//showResult(key, list, ConsoleColor::Color::LIGHT_PURPLE);
+	showResult(key, list, ConsoleColor::Color::LIGHT_PURPLE);
 }
 
 void RaffleManager::showResult() const
