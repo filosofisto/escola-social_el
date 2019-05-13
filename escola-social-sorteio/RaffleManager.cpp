@@ -85,6 +85,8 @@ void RaffleManager::processAreaCategory(const string& key, vector<Inscricao>* li
 	}
 
 	sort(list->begin(), list->end());
+
+	//showResult(key, list, ConsoleColor::Color::LIGHT_PURPLE);
 }
 
 void RaffleManager::showResult() const
